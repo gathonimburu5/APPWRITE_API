@@ -1,4 +1,13 @@
-from application.configuration import client, database, APPWRITE_DATABASE_ID, APPWRITE_COLLECTION_ID, APPWRITE_EMPLOYEE_COLLECTION_ID
+from application.configuration import (
+    client,
+    database,
+    APPWRITE_DATABASE_ID,
+    APPWRITE_COLLECTION_ID,
+    APPWRITE_EMPLOYEE_COLLECTION_ID,
+    APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+    APPWRITE_REQUEST_DETAILS_COLLECTION_ID
+)
+
 import secrets
 
 # database = Databases(client)
@@ -110,6 +119,109 @@ import secrets
 #     database_id=APPWRITE_DATABASE_ID,
 #     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
 #     key="created_on",
+#     required=True,
+# )
+
+#create request header collection
+# result = database.create_collection(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=secrets.token_hex(8),
+#     name="request_header_collections",
+# )
+# result = database.create_collection(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=secrets.token_hex(8),
+#     name="request_details_collections",
+# )
+
+#CREATE REQUEST HEADER ATTRIBUTES
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+#     key="request_type",
+#     size=50,
+#     required=True,
+# )
+
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+#     key="request_description",
+#     size=255,
+#     required=True,
+# )
+
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+#     key="request_status",
+#     size=50,
+#     required=True,
+# )
+
+# result = database.create_datetime_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+#     key="request_date",
+#     required=True,
+# )
+
+# result = database.create_datetime_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
+#     key="created_on",
+#     required=True,
+# )
+
+# # request details attributes
+# result = database.create_integer_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="header_id",
+#     required=True,
+# )
+# result = database.create_integer_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="product_id",
+#     required=True,
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="extra_details",
+#     size=255,
+#     required=True,
+# )
+# result = database.create_integer_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="quantity",
+#     required=True,
+# )
+
+# result = database.create_float_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="unit_price",
+#     required=True,
+# )
+# result = database.create_integer_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="vat_percentage",
+#     required=True,
+# )
+# result = database.create_float_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="vat_amount",
+#     required=True,
+# )
+# result = database.create_float_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+#     key="total_net",
 #     required=True,
 # )
 # print(result)
