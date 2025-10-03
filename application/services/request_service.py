@@ -3,6 +3,7 @@ from application.configuration import (
 )
 from application.model import RequestHeaderItem, RequestDetailsItem
 import secrets
+import traceback
 
 class RequestService:
     def __init__(self):
@@ -46,6 +47,7 @@ class RequestService:
             return request_header
         except Exception as e:
             print(f"Error creating request: {e}")
+            traceback.print_exc()
             return None
     
     def get_all_requests(self):
@@ -54,7 +56,7 @@ class RequestService:
             details = self.database.list_documents(database_id=self.database_id, collection_id=self.request_details_collection_id)
 
             # Map details to their respective headers
-            requests_map = {request.id: [] for request in requests['documents']}
+            requests_map = {request["$id"]: [] for request in requests['documents']}
             for detail in details["documents"]:
                 if detail["header_id"] in requests_map:
                     requests_map[detail["header_id"]].append(detail)
@@ -67,10 +69,11 @@ class RequestService:
                     "request_status": request["request_status"],
                     "request_date": request["request_date"],
                     "created_on": request["created_on"],
-                    "details": requests_map.get(request["$header_id"], [])
+                    "details": requests_map.get(request["$id"], [])
                 }
                 requests_result.append(request_data)
             return requests_result
         except Exception as e:
             print(f"Error retrieving requests: {e}")
+            traceback.print_exc()
             return None

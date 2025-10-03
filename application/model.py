@@ -29,7 +29,7 @@ class EmployeeItem(BaseModel):
     created_on: str = Field(default=datetime.utcnow().isoformat())
 
 class RequestDetailsItem(BaseModel):
-    header_id: int
+    #header_id: str
     product_id: int
     extra_details: str
     quantity: int
