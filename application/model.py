@@ -46,3 +46,32 @@ class RequestHeaderItem(BaseModel):
     details: List[RequestDetailsItem]
     created_on: str = Field(default=datetime.utcnow().isoformat())
 
+class ProductItem(BaseModel):
+    product_name: str
+    product_description: str
+    product_code: str
+    product_type: str
+    product_origin: str
+    category_id: str
+    measure_unit_id: str
+    supplier_id: str
+    vat_percentage: str
+    quantity: int
+    reoder_level: int
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class CategoryItem(BaseModel):
+    category_name: str
+    category_status: str = Field(default="ACTIVE")
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class MeasureUnitItem(BaseModel):
+    unit_name: str
+    unit_status: str = Field(default="ACTIVE")
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class AuditTrailItem(BaseModel):
+    module_name: str
+    action_type: str
+    action_date: str = Field(default=datetime.utcnow().isoformat())
+

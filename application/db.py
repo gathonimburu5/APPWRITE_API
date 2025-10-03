@@ -5,223 +5,160 @@ from application.configuration import (
     APPWRITE_COLLECTION_ID,
     APPWRITE_EMPLOYEE_COLLECTION_ID,
     APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-    APPWRITE_REQUEST_DETAILS_COLLECTION_ID
+    APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
+    APPWRITE_PRODUCT_COLLECTION_ID,
+    APPWRITE_CATEGORY_COLLECTION_ID,
+    APPWRITE_MEASURE_UNIT_COLLECTION_ID,
+    APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 )
 
 import secrets
 
-# database = Databases(client)
-# result = database.create(database_id=secrets.token_hex(8), name="api_db")
-# print(result)
-
-#create a collection
-# result = database.create_collection(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=secrets.token_hex(8),
-#     name="todo_collections",
-# )
-
-#create a attribute
+# #setting category attributes
 # result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_COLLECTION_ID,
-#     key="title",
+#     collection_id=APPWRITE_CATEGORY_COLLECTION_ID,
+#     key='category_name',
 #     size=255,
-#     required=True,
+#     required=True
 # )
-
 # result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_COLLECTION_ID,
-#     key="description",
+#     collection_id=APPWRITE_CATEGORY_COLLECTION_ID,
+#     key='category_status',
 #     size=255,
-#     required=True,
-# )
-
-# result = database.create_datetime_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_COLLECTION_ID,
-#     key="created_on",
-#     required=True,
-# )
-
-#create employee collection
-# result = database.create_collection(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=secrets.token_hex(8),
-#     name="employee_collections",
-# )
-
-#CREATE EMPLOYEE ATTRIBUTES
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="employee_name",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="employee_email",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="phone_number",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="postal_address",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="physical_address",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="department",
-#     size=255,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="gender",
-#     size=50,
-#     required=True,
-# )
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="kra_pin",
-#     size=50,
-#     required=True,
+#     required=True
 # )
 # result = database.create_datetime_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="date_birth",
-#     required=True,
-# )
-# result = database.create_datetime_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_EMPLOYEE_COLLECTION_ID,
-#     key="created_on",
-#     required=True,
+#     collection_id=APPWRITE_CATEGORY_COLLECTION_ID,
+#     key='date_added',
+#     required=True
 # )
 
-#create request header collection
-# result = database.create_collection(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=secrets.token_hex(8),
-#     name="request_header_collections",
-# )
-# result = database.create_collection(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=secrets.token_hex(8),
-#     name="request_details_collections",
-# )
-
-#CREATE REQUEST HEADER ATTRIBUTES
+# #setting measure unit attributes
 # result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-#     key="request_type",
-#     size=50,
-#     required=True,
-# )
-
-# result = database.create_string_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-#     key="request_description",
+#     collection_id=APPWRITE_MEASURE_UNIT_COLLECTION_ID,
+#     key='unit_name',
 #     size=255,
-#     required=True,
+#     required=True
 # )
-
 # result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-#     key="request_status",
-#     size=50,
-#     required=True,
+#     collection_id=APPWRITE_MEASURE_UNIT_COLLECTION_ID,
+#     key='unit_status',
+#     size=255,
+#     required=True
 # )
-
 # result = database.create_datetime_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-#     key="request_date",
-#     required=True,
+#     collection_id=APPWRITE_MEASURE_UNIT_COLLECTION_ID,
+#     key='date_added',
+#     required=True
 # )
-
-# result = database.create_datetime_attribute(
+# #setting product attributes
+# result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_HEADER_COLLECTION_ID,
-#     key="created_on",
-#     required=True,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='product_name',
+#     size=255,
+#     required=True
 # )
-
-# # request details attributes
-# result = database.create_integer_attribute(
+# result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="header_id",
-#     required=True,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='product_description',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='product_code',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='product_type',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='product_origin',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='category_id',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='measure_unit_id',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='supplier_id',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='vat_id',
+#     size=255,
+#     required=True
 # )
 # result = database.create_integer_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="product_id",
-#     required=True,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='quantity',
+#     required=True
+# )
+# result = database.create_integer_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='reorder_level',
+#     required=True
+# )
+# result = database.create_datetime_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_PRODUCT_COLLECTION_ID,
+#     key='date_added',
+#     required=True
+# )
+
+# #setting audit trail attributes
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID,
+#     key='module_name',
+#     size=255,
+#     required=True
 # )
 # result = database.create_string_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="extra_details",
+#     collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID,
+#     key='action_type',
 #     size=255,
-#     required=True,
+#     required=True
 # )
-# result = database.create_integer_attribute(
+# result = database.create_datetime_attribute(
 #     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="quantity",
-#     required=True,
-# )
-
-# result = database.create_float_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="unit_price",
-#     required=True,
-# )
-# result = database.create_integer_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="vat_percentage",
-#     required=True,
-# )
-# result = database.create_float_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="vat_amount",
-#     required=True,
-# )
-# result = database.create_float_attribute(
-#     database_id=APPWRITE_DATABASE_ID,
-#     collection_id=APPWRITE_REQUEST_DETAILS_COLLECTION_ID,
-#     key="total_net",
-#     required=True,
+#     collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID,
+#     key='action_date',
+#     required=True
 # )
 # print(result)
