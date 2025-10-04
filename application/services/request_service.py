@@ -1,7 +1,7 @@
 from application.configuration import (
-    database, APPWRITE_DATABASE_ID, APPWRITE_REQUEST_HEADER_COLLECTION_ID, APPWRITE_REQUEST_DETAILS_COLLECTION_ID
+    database, APPWRITE_DATABASE_ID, APPWRITE_REQUEST_HEADER_COLLECTION_ID, APPWRITE_REQUEST_DETAILS_COLLECTION_ID, APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 )
-from application.model import RequestHeaderItem, RequestDetailsItem
+from application.model import RequestHeaderItem
 import secrets
 import traceback
 
@@ -44,6 +44,14 @@ class RequestService:
                         "total_net": detail.total_net
                     }
                 )
+            #log in audit trail
+            self.database.create_document(database_id=self.database_id, collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID, document_id=secrets.token_hex(16),
+                data={
+                    "module_name": "CREATE REQUEST RECORDS",
+                    "action_type": "CREATE",
+                    "action_date": data.created_on
+                }
+            )
             return request_header
         except Exception as e:
             print(f"Error creating request: {e}")

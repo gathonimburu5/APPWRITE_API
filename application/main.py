@@ -25,3 +25,6 @@ app.include_router(employee_router, prefix="/api", tags=["Employees"])
 
 from application.controllers.request_controller import request_router
 app.include_router(request_router, prefix="/api", tags=["Requests"])
+
+from application.controllers.product_controller import product_router
+app.include_router(product_router, prefix="/api", tags=["Products"])

@@ -1,4 +1,4 @@
-from application.configuration import database, APPWRITE_DATABASE_ID, APPWRITE_EMPLOYEE_COLLECTION_ID
+from application.configuration import database, APPWRITE_DATABASE_ID, APPWRITE_EMPLOYEE_COLLECTION_ID, APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 from application.model import EmployeeItem
 import secrets
 
@@ -33,8 +33,16 @@ class EmployeeService:
                 "created_on": data.created_on
             }
         )
+        # Log the creation in the audit trail
+        self.database.create_document(database_id=self.database_id, collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID, document_id=secrets.token_hex(16),
+            data={
+                "module_name": "CREATE EMPLOYEE RECORDS",
+                "action_type": "CREATE",
+                "action_date": data.created_on
+            }
+        )
         return employee
-    
+
     def get_employee(self, employee_id):
         employee = self.database.get_document(
             database_id=self.database_id,
@@ -42,7 +50,7 @@ class EmployeeService:
             document_id=employee_id
         )
         return employee
-    
+
     def update_employee(self, employee_id, data: EmployeeItem):
         updated_employee = self.database.update_document(
             database_id=self.database_id,
@@ -58,6 +66,14 @@ class EmployeeService:
                 "gender": data.gender,
                 "kra_pin": data.kra_pin,
                 "date_birth": data.date_birth.isoformat()
+            }
+        )
+        # Log the update in the audit trail
+        self.database.create_document(database_id=self.database_id, collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID, document_id=secrets.token_hex(16),
+            data={
+                "module_name": "UPDATE EMPLOYEE RECORDS",
+                "action_type": "UPDATE",
+                "action_date": data.created_on
             }
         )
         return updated_employee

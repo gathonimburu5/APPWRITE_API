@@ -75,3 +75,19 @@ class AuditTrailItem(BaseModel):
     action_type: str
     action_date: str = Field(default=datetime.utcnow().isoformat())
 
+class UpdateCategoryItem(BaseModel):
+    category_name: str
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class DeactivateCategoryItem(BaseModel):
+    category_status: str = Field(default="Inactive")
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class UpdateMeasureUnitItem(BaseModel):
+    unit_name: str
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
+class DeactivateMeasureUnitItem(BaseModel):
+    unit_status: str = Field(default="Inactive")
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+
