@@ -9,7 +9,8 @@ from application.configuration import (
     APPWRITE_PRODUCT_COLLECTION_ID,
     APPWRITE_CATEGORY_COLLECTION_ID,
     APPWRITE_MEASURE_UNIT_COLLECTION_ID,
-    APPWRITE_AUDIT_TRAIL_COLLECTION_ID
+    APPWRITE_AUDIT_TRAIL_COLLECTION_ID,
+    APPWRITE_SUPPLIER_COLLECTION_ID
 )
 
 import secrets
@@ -159,6 +160,69 @@ import secrets
 #     database_id=APPWRITE_DATABASE_ID,
 #     collection_id=APPWRITE_AUDIT_TRAIL_COLLECTION_ID,
 #     key='action_date',
+#     required=True
+# )
+
+#setting supplier collection
+# result = database.create_collection(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=secrets.token_hex(8),
+#     name="suppliers_collection"
+# )
+
+# setting supplier attributes
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='supplier_name',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='supplier_code',
+#     size=255,
+#     required=True
+# )
+# result = database.create_email_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='supplier_email',
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='phone_number',
+#     size=20,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='postal_address',
+#     size=255,
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='physical_address',
+#     size=255,
+#     required=True
+# )
+# result = database.create_datetime_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='dob',
+#     required=True
+# )
+# result = database.create_string_attribute(
+#     database_id=APPWRITE_DATABASE_ID,
+#     collection_id=APPWRITE_SUPPLIER_COLLECTION_ID,
+#     key='supplier_status',
+#     size=50,
 #     required=True
 # )
 # print(result)
