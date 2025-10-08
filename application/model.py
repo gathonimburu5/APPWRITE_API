@@ -91,3 +91,14 @@ class DeactivateMeasureUnitItem(BaseModel):
     unit_status: str = Field(default="Inactive")
     date_added: str = Field(default=datetime.utcnow().isoformat())
 
+class SupplierItem(BaseModel):
+    supplier_name: str
+    supplier_code: str
+    supplier_email: str
+    supplier_phone: str
+    postal_address: str
+    physical_address: str
+    dob: datetime
+    supplier_status: str = Field(default="ACTIVE")
+    date_added: str = Field(default=datetime.utcnow().isoformat())
+

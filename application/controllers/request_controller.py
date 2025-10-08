@@ -16,3 +16,7 @@ async def create_request(request: RequestHeaderItem):
 @request_router.get("/requests")
 async def get_all_requests():
     return request_service.get_all_requests()
+
+@request_router.get("/requests/{request_id}")
+async def get_request(requestId: str):
+    return request_service.get_request(requestId)
