@@ -13,8 +13,9 @@ class RequestService:
         self.request_header_collection_id = APPWRITE_REQUEST_HEADER_COLLECTION_ID
         self.request_details_collection_id = APPWRITE_REQUEST_DETAILS_COLLECTION_ID
 
-    def create_request(self, data: RequestHeaderItem):
+    def create_request(self, data: RequestHeaderItem, current_user):
         try:
+            user_id = current_user["id"]
             # Create the request header
             request_header = self.database.create_document(
                 database_id=self.database_id,
@@ -25,7 +26,8 @@ class RequestService:
                     "request_description": data.request_description,
                     "request_status": data.request_status,
                     "request_date": data.request_date.isoformat(),
-                    "created_on": data.created_on
+                    "created_on": data.created_on,
+                    "created_by": user_id
                 }
             )
             # Create the request details
@@ -50,7 +52,8 @@ class RequestService:
                 data={
                     "module_name": "CREATE REQUEST RECORDS",
                     "action_type": "CREATE",
-                    "action_date": data.created_on
+                    "action_date": data.created_on,
+                    "created_by": user_id
                 }
             )
             return request_header

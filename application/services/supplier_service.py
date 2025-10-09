@@ -12,8 +12,9 @@ class SupplierService:
         self.supplier_collection_id = APPWRITE_SUPPLIER_COLLECTION_ID
         self.audit_trail_collection_id = APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 
-    def create_supplier(self, data: SupplierItem):
+    def create_supplier(self, data: SupplierItem, current_user):
         try:
+            user_id = current_user["id"]
             # Create the supplier record
             supplier = self.database.create_document(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=secrets.token_hex(16),
                 data={
@@ -25,7 +26,8 @@ class SupplierService:
                     "physical_address": data.physical_address,
                     "dob": data.dob.isoformat(),
                     "supplier_status": data.supplier_status,
-                    "date_added": data.date_added
+                    "date_added": data.date_added,
+                    "created_by": user_id
                 }
             )
             # Log in audit trail
@@ -33,7 +35,8 @@ class SupplierService:
                 data={
                     "module_name": "CREATE SUPPLIER RECORD",
                     "action_type": "CREATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return supplier
@@ -48,8 +51,9 @@ class SupplierService:
     def get_supplier(self, supplier_id: str):
         return self.database.get_document(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=supplier_id)
 
-    def update_supplier(self, supplier_id: str, data: SupplierItem):
+    def update_supplier(self, supplier_id: str, data: SupplierItem, current_user):
         try:
+            user_id = current_user["id"]
             # Update the supplier record
             supplier = self.database.update_document(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=supplier_id,
                 data={
@@ -60,7 +64,8 @@ class SupplierService:
                     "postal_address": data.postal_address,
                     "physical_address": data.physical_address,
                     "dob": data.dob.isoformat(),
-                    "date_added": data.date_added
+                    "date_added": data.date_added,
+                    "created_by": user_id
                 }
             )
             # Log in audit trail
@@ -68,7 +73,8 @@ class SupplierService:
                 data={
                     "module_name": "UPDATE SUPPLIER RECORD",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return supplier

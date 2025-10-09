@@ -15,8 +15,9 @@ class ProductService:
         self.measure_unit_collection_id = APPWRITE_MEASURE_UNIT_COLLECTION_ID
         self.audit_trail_collection_id = APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 
-    def create_product(self, data: ProductItem):
+    def create_product(self, data: ProductItem, current_user):
         try:
+            user_id = current_user["id"]
             product = self.database.create_document(database_id=self.database_id, collection_id=self.product_collection_id, document_id=secrets.token_hex(16),
                 data={
                     "product_name": data.product_name,
@@ -30,7 +31,8 @@ class ProductService:
                     "vat_percentage": data.vat_percentage,
                     "quantity": data.quantity,
                     "reoder_level": data.reoder_level,
-                    "date_added": data.date_added
+                    "date_added": data.date_added,
+                    "created_by": user_id
                 }
             )
             # Log the creation in the audit trail
@@ -38,7 +40,8 @@ class ProductService:
                 data={
                     "module_name": "CREATE PRODUCT RECORDS",
                     "action_type": "CREATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return product
@@ -53,8 +56,9 @@ class ProductService:
     def get_product(self, product_id):
         return self.database.get_document(database_id=self.database_id, collection_id=self.product_collection_id, document_id=product_id)
 
-    def update_product(self, product_id, data: ProductItem):
+    def update_product(self, product_id, data: ProductItem, current_user):
         try:
+            user_id = current_user["id"]
             updated_product = self.database.update_document(database_id=self.database_id, collection_id=self.product_collection_id, document_id=product_id,
                 data={
                     "product_name": data.product_name,
@@ -67,7 +71,8 @@ class ProductService:
                     "supplier_id": data.supplier_id,
                     "vat_percentage": data.vat_percentage,
                     "quantity": data.quantity,
-                    "reoder_level": data.reoder_level
+                    "reoder_level": data.reoder_level,
+                    "created_by": user_id
                 }
             )
             # Log the update in the audit trail
@@ -75,7 +80,8 @@ class ProductService:
                 data={
                     "module_name": "UPDATE PRODUCT RECORDS",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return updated_product
@@ -84,13 +90,15 @@ class ProductService:
             traceback.print_exc()
             return None
 
-    def create_category(self, data: CategoryItem):
+    def create_category(self, data: CategoryItem, current_user):
         try:
+            user_id = current_user["id"]
             category = self.database.create_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=secrets.token_hex(16),
                 data={
                     "category_name": data.category_name,
                     "category_status": data.category_status,
-                    "date_added": data.date_added
+                    "date_added": data.date_added,
+                    "created_by": user_id
                 }
             )
             #register in audit trail
@@ -98,7 +106,8 @@ class ProductService:
                 data={
                     "module_name": "CREATE PRODUCT CATEGORY",
                     "action_type": "CREATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return category
@@ -113,8 +122,9 @@ class ProductService:
     def get_category(self, category_id):
         return self.database.get_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=category_id)
 
-    def update_category(self, category_id, data: UpdateCategoryItem):
+    def update_category(self, category_id, data: UpdateCategoryItem, current_user):
         try:
+            user_id = current_user["id"]
             updated_category = self.database.update_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=category_id,
                 data={
                     "category_name": data.category_name
@@ -125,7 +135,8 @@ class ProductService:
                 data={
                     "module_name": "UPDATE PRODUCT CATEGORY",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return updated_category
@@ -134,8 +145,9 @@ class ProductService:
             traceback.print_exc()
             return None
 
-    def deactivate_category(self, category_id, data: DeactivateCategoryItem):
+    def deactivate_category(self, category_id, data: DeactivateCategoryItem, current_user):
         try:
+            user_id = current_user["id"]
             updated_category = self.database.update_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=category_id,
                 data={
                     "category_status": data.category_status
@@ -146,7 +158,8 @@ class ProductService:
                 data={
                     "module_name": "DEACTIVATE PRODUCT CATEGORY",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return updated_category
@@ -155,13 +168,15 @@ class ProductService:
             traceback.print_exc()
             return None
 
-    def create_measure_unit(self, data: MeasureUnitItem):
+    def create_measure_unit(self, data: MeasureUnitItem, current_user):
         try:
+            user_id = current_user["id"]
             measure_unit = self.database.create_document(database_id=self.database_id, collection_id=self.measure_unit_collection_id, document_id=secrets.token_hex(16),
                 data={
                     "unit_name": data.unit_name,
                     "unit_status": data.unit_status,
-                    "date_added": data.date_added
+                    "date_added": data.date_added,
+                    "created_by": user_id
                 }
             )
             #register in audit trail
@@ -169,7 +184,8 @@ class ProductService:
                 data={
                     "module_name": "CREATE MEASURE UNIT",
                     "action_type": "CREATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return measure_unit
@@ -187,8 +203,9 @@ class ProductService:
     def get_measure_unit(self, unit_id):
         return self.database.get_document(database_id=self.database_id, collection_id=self.measure_unit_collection_id, document_id=unit_id)
 
-    def update_measure_unit(self, unit_id, data: UpdateMeasureUnitItem):
+    def update_measure_unit(self, unit_id, data: UpdateMeasureUnitItem, current_user):
         try:
+            user_id = current_user["id"]
             updated_unit = self.database.update_document(database_id=self.database_id, collection_id=self.measure_unit_collection_id, document_id=unit_id,
                 data={
                     "unit_name": data.unit_name
@@ -199,7 +216,8 @@ class ProductService:
                 data={
                     "module_name": "UPDATE MEASURE UNIT",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return updated_unit
@@ -208,8 +226,9 @@ class ProductService:
             traceback.print_exc()
             return None
 
-    def deactivate_measure_unit(self, unit_id, data: DeactivateMeasureUnitItem):
+    def deactivate_measure_unit(self, unit_id, data: DeactivateMeasureUnitItem, current_user):
         try:
+            user_id = current_user["id"]
             updated_unit = self.database.update_document(database_id=self.database_id, collection_id=self.measure_unit_collection_id, document_id=unit_id,
                 data={
                     "unit_status": data.unit_status
@@ -220,7 +239,8 @@ class ProductService:
                 data={
                     "module_name": "DEACTIVATE MEASURE UNIT",
                     "action_type": "UPDATE",
-                    "action_date": data.date_added
+                    "action_date": data.date_added,
+                    "created_by": user_id
                 }
             )
             return updated_unit
