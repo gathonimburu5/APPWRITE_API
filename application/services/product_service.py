@@ -117,10 +117,10 @@ class ProductService:
             return None
 
     def get_all_categories(self):
-        return self.database.list_documents(database_id=self.database_id, collection_id=self.category_collection_id)
+        return self.database.list_documents(database_id=self.database_id, collection_id=self.category_collection_id, queries=[Query.select(["category_name", "category_status", "date_added", "created_by"])])
 
     def get_category(self, category_id):
-        return self.database.get_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=category_id)
+        return self.database.get_document(database_id=self.database_id, collection_id=self.category_collection_id, document_id=category_id, queries=[Query.select(["category_name", "category_status", "date_added", "created_by"])])
 
     def update_category(self, category_id, data: UpdateCategoryItem, current_user):
         try:
