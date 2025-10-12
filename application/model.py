@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, validator
 from datetime import datetime, date
-from typing import List
+from typing import List, Optional
 
 class TodoItem(BaseModel):
     title: str
@@ -100,11 +100,17 @@ class RegisterUserItem(BaseModel):
     email_address: EmailStr
     username: str
     password: str
+    confirm_password: str
     phone_number: str
     dob: date
-    profile: str = Field(default="upload/profile.png")
+    profile: Optional[str] = None    #= Field(default="upload/profile.png")
     date_added: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    @validator("confirm_password")
+    def password_match(cls, v, values):
+        if "password" in values and v != values["password"]:
+            raise ValueError("password does not match")
+        return v
 class UserLoginItem(BaseModel):
     username: str
     password: str
@@ -116,4 +122,18 @@ class UserTokenItem(BaseModel):
     email_address: str
     phone_number: str
     username: str
+class UpdateUserItem(BaseModel):
+    full_name: str
+    email_address: str
+    phone_number: str
+    profile: Optional[str] = None
+class ChangePassword(BaseModel):
+    old_password: str
+    new_password: str
+    confirm_password: str
+    @validator("confirm_password")
+    def password_match(cls, v, values):
+        if "new_password" in values and v != values["new_password"]:
+            raise ValueError("password does not match")
+        return v
 
