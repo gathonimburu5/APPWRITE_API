@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from application.services.supplier_service import SupplierService
-from application.model import SupplierItem
+from application.model import SupplierItem, SupplierStatusItem
 from application.utils.token import get_current_user
 
 supplier_router = APIRouter()
@@ -30,3 +30,23 @@ def update_supplier(supplier_id: str, update_data: SupplierItem, user: dict = De
         return JSONResponse(content={"message": "Supplier updated successfully", "data": updated_supplier}, status_code=200)
     except Exception as e:
         raise JSONResponse(content={"message": "Error updating supplier", "error": str(e)}, status_code=500)
+
+@supplier_router.put("/suppliers_activate/{supplier_id}")
+def activate_supplier(supplier_id: str, form_data: SupplierStatusItem, user: dict = Depends(get_current_user)):
+    try:
+        activate = supplier_service.activate_supplier(supplier_id, form_data, user)
+        return JSONResponse(content={"message": "Supplier successfully activated", "data": activate}, status_code=200)
+    except Exception as e:
+        raise JSONResponse(content={"message": "Error activating supplier", "error": str(e)}, status_code=500)
+
+@supplier_router.put("/suppliers_deactivate/{supplier_id}")
+def deactivate_supplier(supplier_id: str, form_data: SupplierStatusItem, user: dict = Depends(get_current_user)):
+    try:
+        deactivate = supplier_service.deactivate_supplier(supplier_id, form_data, user)
+        return JSONResponse(content={"message": "Supplier successfully activated", "data": deactivate}, status_code=200)
+    except Exception as e:
+        raise JSONResponse(content={"message": "Error activating supplier", "error": str(e)}, status_code=500)
+
+@supplier_router.get("/active_suppliers")
+def get_active_suppliers(user: dict = Depends(get_current_user)):
+    return supplier_service.get_active_supplier()

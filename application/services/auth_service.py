@@ -52,7 +52,7 @@ class AuthenticationService:
             return None
 
     def get_all_registered_users(self):
-        return self.database.list_documents(database_id=self.database_id, collection_id=self.user_collection_id)
+        return self.database.list_documents(database_id=self.database_id, collection_id=self.user_collection_id, queries=[Query.select(["full_name", "email_address", "username", "phone_number", "dob", "profile", "date_added"])])
 
     def update_registered_user(self, data: UpdateUserItem, user_id: str, file):
         try:

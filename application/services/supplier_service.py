@@ -1,7 +1,9 @@
 from application.configuration import (
     database, APPWRITE_DATABASE_ID, APPWRITE_SUPPLIER_COLLECTION_ID, APPWRITE_AUDIT_TRAIL_COLLECTION_ID
 )
-from application.model import SupplierItem
+from application.model import SupplierItem, SupplierStatusItem
+from datetime import datetime
+from appwrite.query import Query
 import secrets
 import traceback
 
@@ -82,3 +84,40 @@ class SupplierService:
             print(f"Error updating supplier: {e}")
             traceback.print_exc()
             return None
+
+    def activate_supplier(self, supplier_id: str, form_data: SupplierStatusItem, current_user):
+        try:
+            user_id = current_user.get("id")
+            form_data.supplier_status = "ACTIVE"
+            activate_supplier = self.database.update_document(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=supplier_id, data={ "supplier_status" : form_data.supplier_status })
+            self.database.create_document(database_id=self.database_id, collection_id=self.audit_trail_collection_id, document_id=secrets.token_hex(8), data={
+                "module_name": "ACTIVATE SUPPLIER DETAILS",
+                "action_type": "UPDATE",
+                "action_date": datetime.utcnow().isoformat(),
+                "created_by": user_id
+            })
+            return activate_supplier
+        except Exception as e:
+            print(f"Error while activating supplier: {e}")
+            traceback.print_exc()
+            return None
+
+    def deactivate_supplier(self, supplier_id: str, form_data: SupplierStatusItem, current_user):
+        try:
+            user_id = current_user.get("id")
+            form_data.supplier_status = "INACTIVE"
+            supplier = self.database.update_document(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=supplier_id, data={ "supplier_status" : form_data.supplier_status })
+            self.database.create_document(database_id=self.database_id, collection_id=self.audit_trail_collection_id, document_id=secrets.token_hex(8), data={
+                "module_name": "DEACTIVATE SUPPLIER DETAILS",
+                "action_type": "UPDATE",
+                "action_date": datetime.utcnow().isoformat(),
+                "created_by": user_id
+            })
+            return supplier
+        except Exception as e:
+            print(f"Error while deactivating supplier: {e}")
+            traceback.print_exc()
+            return None
+
+    def get_active_supplier(self, supplier_id: str):
+        return self.database.list_documents(database_id=self.database_id, collection_id=self.supplier_collection_id, document_id=supplier_id, queries=[Query.equal(["supplier_status", "ACTIVE"])])

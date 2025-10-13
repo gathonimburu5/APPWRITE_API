@@ -6,12 +6,13 @@ class TodoItem(BaseModel):
     title: str
     description: str
     created_on: str = Field(default=datetime.utcnow().isoformat())
+    class Config:
+        orm_mode = True
 class TodoOutput(BaseModel):
     id: str
     title: str
     description: str
     created_on: datetime
-
     class Config:
         orm_mode = True
 class EmployeeItem(BaseModel):
@@ -26,6 +27,8 @@ class EmployeeItem(BaseModel):
     date_birth: datetime
     created_on: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class RequestDetailsItem(BaseModel):
     #header_id: str
     product_id: int
@@ -35,6 +38,8 @@ class RequestDetailsItem(BaseModel):
     vat_percentage: int
     vat_amount: float
     total_net: float
+    class Config:
+        orm_mode = True
 class RequestHeaderItem(BaseModel):
     request_type: str
     request_description: str
@@ -43,6 +48,8 @@ class RequestHeaderItem(BaseModel):
     details: List[RequestDetailsItem]
     created_on: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class ProductItem(BaseModel):
     product_name: str
     product_description: str
@@ -57,33 +64,49 @@ class ProductItem(BaseModel):
     reoder_level: int
     date_added: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class CategoryItem(BaseModel):
     category_name: str
     category_status: str = Field(default="ACTIVE")
     date_added: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class MeasureUnitItem(BaseModel):
     unit_name: str
     unit_status: str = Field(default="ACTIVE")
     date_added: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class AuditTrailItem(BaseModel):
     module_name: str
     action_type: str
     action_date: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
 class UpdateCategoryItem(BaseModel):
     category_name: str
     date_added: str = Field(default=datetime.utcnow().isoformat())
+    class Config:
+        orm_mode = True
 class DeactivateCategoryItem(BaseModel):
     category_status: str = Field(default="Inactive")
     date_added: str = Field(default=datetime.utcnow().isoformat())
+    class Config:
+        orm_mode = True
 class UpdateMeasureUnitItem(BaseModel):
     unit_name: str
     date_added: str = Field(default=datetime.utcnow().isoformat())
+    class Config:
+        orm_mode = True
 class DeactivateMeasureUnitItem(BaseModel):
     unit_status: str = Field(default="Inactive")
     date_added: str = Field(default=datetime.utcnow().isoformat())
+    class Config:
+        orm_mode = True
 class SupplierItem(BaseModel):
     supplier_name: str
     supplier_code: str
@@ -95,6 +118,12 @@ class SupplierItem(BaseModel):
     supplier_status: str = Field(default="ACTIVE")
     date_added: str = Field(default=datetime.utcnow().isoformat())
     created_by: str
+    class Config:
+        orm_mode = True
+class SupplierStatusItem(BaseModel):
+    supplier_status: str
+    class Config:
+        orm_mode = True
 class RegisterUserItem(BaseModel):
     full_name: str
     email_address: EmailStr
@@ -111,9 +140,13 @@ class RegisterUserItem(BaseModel):
         if "password" in values and v != values["password"]:
             raise ValueError("password does not match")
         return v
+    class Config:
+        orm_mode = True
 class UserLoginItem(BaseModel):
     username: str
     password: str
+    class Config:
+        orm_mode = True
 class UserTokenItem(BaseModel):
     id: str
     access_token: str
@@ -122,11 +155,15 @@ class UserTokenItem(BaseModel):
     email_address: str
     phone_number: str
     username: str
+    class Config:
+        orm_mode = True
 class UpdateUserItem(BaseModel):
     full_name: str
     email_address: str
     phone_number: str
     profile: Optional[str] = None
+    class Config:
+        orm_mode = True
 class ChangePassword(BaseModel):
     old_password: str
     new_password: str
@@ -136,4 +173,6 @@ class ChangePassword(BaseModel):
         if "new_password" in values and v != values["new_password"]:
             raise ValueError("password does not match")
         return v
+    class Config:
+        orm_mode = True
 
