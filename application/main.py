@@ -17,8 +17,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# from application.controllers.todo_controller import todo_router
-# app.include_router(todo_router, prefix="/api", tags=["Todos"])
+from application.controllers.todo_controller import todo_router
+app.include_router(todo_router, prefix="/api", tags=["Todos"])
 
 from application.controllers.employee_controller import employee_router
 app.include_router(employee_router, prefix="/api", tags=["Employees"])
