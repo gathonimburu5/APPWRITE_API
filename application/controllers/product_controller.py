@@ -55,7 +55,7 @@ def update_category(category_id: str, update_data: UpdateCategoryItem, user: dic
     except Exception as e:
         raise JSONResponse(content={"message": "Error updating category", "error": str(e)}, status_code=500)
 
-@product_router.put("/categories/{category_id}/deactivate")
+@product_router.put("/category-deactivate/{category_id}")
 def deactivate_category(category_id: str, update_data: DeactivateCategoryItem, user: dict = Depends(get_current_user)):
     try:
         deactivated_category = product_service.deactivate_category(category_id, update_data, user)
@@ -91,7 +91,7 @@ def update_measure_unit(unit_id: str, update_data: UpdateMeasureUnitItem, user: 
     except Exception as e:
         raise JSONResponse(content={"message": "Error updating measure unit", "error": str(e)}, status_code=500)
 
-@product_router.put("/measure-units/{unit_id}/deactivate")
+@product_router.put("/measure-unit-deactivate/{unit_id}")
 def deactivate_measure_unit(unit_id: str, update_data: DeactivateMeasureUnitItem, user: dict = Depends(get_current_user)):
     try:
         deactivated_unit = product_service.deactivate_measure_unit(unit_id, update_data, user)
