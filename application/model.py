@@ -134,7 +134,7 @@ class RegisterUserItem(BaseModel):
     dob: date
     profile: Optional[str] = None    #= Field(default="upload/profile.png")
     date_added: str = Field(default=datetime.utcnow().isoformat())
-    created_by: str
+    created_by: Optional[str] = None
     @validator("confirm_password")
     def password_match(cls, v, values):
         if "password" in values and v != values["password"]:
