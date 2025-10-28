@@ -155,6 +155,7 @@ class UserTokenItem(BaseModel):
     email_address: str
     phone_number: str
     username: str
+    profile_picture: Optional[str] = None
     class Config:
         orm_mode = True
 class UpdateUserItem(BaseModel):

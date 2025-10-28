@@ -57,5 +57,6 @@ def user_login(username: str = Form(...), password: str = Form(...)):
         "full_name": user.get("full_name"),
         "email_address": user.get("email_address"),
         "phone_number": user.get("phone_number"),
-        "username": user.get("username")
+        "username": user.get("username"),
+        "profile_picture": user.get("profile")
     }
