@@ -2,7 +2,7 @@ from fastapi import UploadFile
 import os
 import uuid
 
-UPLOAD_DIR = os.path.join("application", "static", "upload", "users")
+UPLOAD_DIR = os.path.join("static", "upload", "users")
 DEFAULT_IMG = "profile.png"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
